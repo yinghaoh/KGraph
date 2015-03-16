@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+<project name="KGraph" default="system">
+	<property name="war.filename" value="${ant.project.name}.war" />
+	<property name="jar.filename" value="${ant.project.name}.jar" />
+	<property name="lib.path" value="WebContent/WEB-INF/lib" />
+	<property name="build.classes.dir" value="build/classes" />
+	<property name="build.webcontent.dir" value="build/WebContent" />
+	<property name="source.webcontent.dir" value="WebContent" />
+
+	<target name="system" depends="war,cleanbuild">
+
+	</target>
+	<target name="jar" depends="compile">
+		<jar destfile="${lib.path}/${jar.filename}" basedir="build/classes"/>
+	</target>
+
+	<path id="compile.classpath">
+		<fileset dir="${lib.path}">
+			<include name="*.jar" />
+			<include name="servlet/*.jar" />
+		</fileset>
+	</path>
+
+	<target name="init">
+		<mkdir dir="${build.classes.dir}" />
+		<mkdir dir="${build.webcontent.dir}" />
+	</target>
+
+	<target name="compile" depends="init">
+		<javac destdir="build/classes" debug="true" srcdir="src">
+			<classpath refid="compile.classpath" />
+		</javac>
+	</target>
+
+	<target name="war" depends="clean,jar">
+		<war destfile="${war.filename}" webxml="WebContent/WEB-INF/web.xml">
+			<fileset dir="${build.webcontent.dir}" />
+			<lib dir="${lib.path}" >
+			<exclude name="servlet/*.jar"/>
+			</lib>
+		</war>
+	</target>
+	
+	<target name="clean">
+		<delete file="${war.filename}" />
+		<delete dir="build" />
+	</target>
+	
+	<target name="cleanbuild">
+		<delete dir="build" />
+	</target>
+</project>

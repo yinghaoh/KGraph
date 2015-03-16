@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>KGraph</display-name>
+  <context-param>
+    <param-name>org.restlet.application</param-name>
+    <param-value>
+        com.commvault.application.SearchApp
+    </param-value>
+  </context-param>
+  <servlet>
+    <servlet-name>RestletServlet</servlet-name>
+    <servlet-class>
+        org.restlet.ext.servlet.ServerServlet
+    </servlet-class>
+    <init-param>
+    <param-name>GLOBALBASE</param-name>
+    <param-value>
+        http://172.19.112.85:8086/commvault/
+    </param-value>
+    </init-param>
+    <init-param>
+    <param-name>VER</param-name>
+    <param-value>
+        v11/
+    </param-value>
+    </init-param>
+    <init-param>
+    <param-name>HOME</param-name>
+    <param-value>
+        D:\\Extractor_deploy\\
+    </param-value>
+    </init-param>
+    <init-param>
+    <param-name>DB_PATH</param-name>
+    <param-value>
+        Neo4j\\search.graphdb
+    </param-value>
+    </init-param> 
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RestletServlet</servlet-name>
+    <url-pattern>/*</url-pattern>
+  </servlet-mapping>
+</web-app>
